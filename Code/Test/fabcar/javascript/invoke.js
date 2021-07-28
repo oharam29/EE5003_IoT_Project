@@ -50,6 +50,35 @@ async function main() {
 	//await contract.submitTransaction('createCar', 'CAR13', 'Bugatti', 'Chiron', 'Blue', 'Mike');
 	console.log('Transaction submitted');
 
+	const readline = require('readline').createInterface({
+		input: process.stdin,
+		output: process.stdout
+	});
+
+	var typefile = "";
+	var namefile = "";
+	var ownerfile = "";
+	var descriptionfile = "";
+
+
+	readline.question('What type of file is it?', ftype => {
+		typefile = ftype;
+		readline.question('What is the file name?', fname => {
+			namefile = fname;
+			readline.question('Who owns the file?', fowner => {
+				ownerfile = fowner;
+				readline.question('What type  of file is it?', fdescription => {
+					descriptionfile = fdescription;
+					readline.close();
+				});
+			});
+		});
+	});
+	console.log(typefile);
+
+	await contract.submitTransaction('createFile', 'File02', typefile, namefile, ownerfile, descriptionfile);
+
+
         // Disconnect from the gateway.
         await gateway.disconnect();
 
