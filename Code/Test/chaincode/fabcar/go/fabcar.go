@@ -10,6 +10,7 @@ import (
 	"strconv"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
+	"time"
 )
 
 // SmartContract provides functions for managing a file
@@ -30,6 +31,7 @@ type File struct {
 	Name string `json:"name"` 
 	Owner string `json:"owner"`
 	Description string `json:"description"`
+	TimeStamp time.Time `json:"timestamp"`
 }
 
 // QueryResult structure used for handling result of query
@@ -43,9 +45,15 @@ type QueryResult struct {
 
 // InitLedger adds a base set of files to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
+	//console.log(date);
+	//var json = JSON.stringify(date);	
+	t := time.Now()
+
 	files := []File{
 
-		File{Type: "Word", Name: "Grades", Owner: "Mike", Description: "Grades of Maths test"},
+
+		
+		File{Type: "Word", Name: "Grades", Owner: "Mike", Description: "Grades of Maths test", TimeStamp: t},
 	}
 
 	for i, file := range files {
@@ -67,6 +75,7 @@ func (s *SmartContract) CreateFile(ctx contractapi.TransactionContextInterface, 
 		Name:  name,
 		Owner: owner,
 		Description:  description,
+		//TimeStamp: timestamp,
 	}
 
 	fileAsBytes, _ := json.Marshal(file)
