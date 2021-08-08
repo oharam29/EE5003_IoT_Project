@@ -31,13 +31,11 @@ type File struct {
 	Name string `json:"name"` 
 	Owner string `json:"owner"`
 	Description string `json:"description"`
-	TimeStamp time.Time `json:"timestamp"`
+	TimeStamp string `json:timestamp`
 }
 
 // QueryResult structure used for handling result of query
 type QueryResult struct {
-	//Key    string `json:"Key"`
-	//Record *File
 
 	Key	string `json:"Key"`
 	Record	*File
@@ -47,7 +45,11 @@ type QueryResult struct {
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	//console.log(date);
 	//var json = JSON.stringify(date);	
-	t := time.Now()
+	timestamp,e := ctx.GetStub().GetTxTimestamp()
+	t := time.Unix(timestamp.Seconds, int64(timestamp.Nanos)).String()
+	if e != nil {
+		return fmt.Errorf("Failed to fetch time. %s", e.Error())
+	}
 
 	files := []File{
 
@@ -69,13 +71,13 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 }
 
 // CreateFile adds a new file to the world state with given details
-func (s *SmartContract) CreateFile(ctx contractapi.TransactionContextInterface, fileNumber string, filetype string, name string, owner string, description string) error {
+func (s *SmartContract) CreateFile(ctx contractapi.TransactionContextInterface, fileNumber string, filetype string, name string, owner string, description string, timestamp string) error {
 	file := File{
 		Type:   filetype,
 		Name:  name,
 		Owner: owner,
 		Description:  description,
-		//TimeStamp: timestamp,
+		TimeStamp: timestamp,
 	}
 
 	fileAsBytes, _ := json.Marshal(file)
