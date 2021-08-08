@@ -92,8 +92,8 @@ func (s *SmartContract) QueryCar(ctx contractapi.TransactionContextInterface, fi
 	return file, nil
 }
 
-// QueryAllCars returns all files found in world state
-func (s *SmartContract) QueryAllCars(ctx contractapi.TransactionContextInterface) ([]QueryResult, error) {
+// QueryAllFiles returns all files found in world state
+func (s *SmartContract) QueryAllFiles(ctx contractapi.TransactionContextInterface) ([]QueryResult, error) {
 	startKey := ""
 	endKey := ""
 

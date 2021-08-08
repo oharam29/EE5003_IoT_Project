@@ -10,6 +10,19 @@ const { Gateway, Wallets } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
+const prompt = require('prompt');
+const readline = require('readline').createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
+
+async function userinput() {
+	
+
+
+	//return details;
+}
+
 async function main() {
     try {
         // load the network configuration
@@ -47,40 +60,48 @@ async function main() {
 
 
 	await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', 'Sales figures for the week');
-	//await contract.submitTransaction('createCar', 'CAR13', 'Bugatti', 'Chiron', 'Blue', 'Mike');
 	console.log('Transaction submitted');
 
-	const readline = require('readline').createInterface({
-		input: process.stdin,
-		output: process.stdout
-	});
+	//await userinput();
+	var details = new Array();
+	var filetype = "";
+	var fileowner = "";
+	var filename = "";
+	var filedesc = "";
 
-	var typefile = "";
-	var namefile = "";
-	var ownerfile = "";
-	var descriptionfile = "";
+	console.log(details.length);
 
-
-	readline.question('What type of file is it?', ftype => {
-		typefile = ftype;
+	readline.question('What type of file is it?', (ftype) => {
+		filetype = ftype;
+		console.log(filetype);
 		readline.question('What is the file name?', fname => {
-			namefile = fname;
+			filename=fname;
 			readline.question('Who owns the file?', fowner => {
-				ownerfile = fowner;
+				fileowner = fowner;
 				readline.question('What type  of file is it?', fdescription => {
-					descriptionfile = fdescription;
+					filedesc = fdescription;
+					contract.submitTransaction('createFile', 'File02', filetype, 						filename, fileowner, filedesc);
+					console.log(details.length);
 					readline.close();
+					readline.removeAllListeners();
+
 				});
 			});
 		});
 	});
-	console.log(typefile);
+	details[0] = filetype;
+	details[1] = filename;
+	details[2] = fileowner;
+	details[3] = filedesc;
 
-	await contract.submitTransaction('createFile', 'File02', typefile, namefile, ownerfile, descriptionfile);
+
+
+	//console.log(details[0]);
+	
 
 
         // Disconnect from the gateway.
-        await gateway.disconnect();
+    await gateway.disconnect();
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
