@@ -17,10 +17,41 @@ const readline = require('readline').createInterface({
 });
 
 async function userinput() {
-	
+		var details = new Array();
+		var filetype = "";
+		var fileowner = "";
+		var filename = "";
+		var filedesc = "";
+
+		console.log(details.length);
+
+		readline.question('What type of file is it?', (ftype) => {
+			filetype = ftype;
+			console.log(filetype);
+			readline.question('What is the file name?', fname => {
+				filename=fname;
+				readline.question('Who owns the file?', fowner => {
+					fileowner = fowner;
+					readline.question('What type  of file is it?', fdescription => {
+						filedesc = fdescription;
+						contract.submitTransaction('createFile', 'File02', filetype, 						filename, fileowner, filedesc);
+						console.log(details.length);
+						readline.close();
+						readline.removeAllListeners();
+
+					});
+				});
+			});
+		});
+		details[0] = filetype;
+		details[1] = filename;
+		details[2] = fileowner;
+		details[3] = filedesc;
 
 
-	//return details;
+
+		console.log(details[0]);
+	return details;
 }
 
 async function main() {
@@ -58,50 +89,17 @@ async function main() {
         //await contract.submitTransaction('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
         console.log('Transaction has been submitted');
 
+        var time = new Date();
+        console.log(time);
 
-	await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', 'Sales figures for the week');
-	console.log('Transaction submitted');
+        var json = JSON.stringify(time);
 
-	//await userinput();
-	var details = new Array();
-	var filetype = "";
-	var fileowner = "";
-	var filename = "";
-	var filedesc = "";
-
-	console.log(details.length);
-
-	readline.question('What type of file is it?', (ftype) => {
-		filetype = ftype;
-		console.log(filetype);
-		readline.question('What is the file name?', fname => {
-			filename=fname;
-			readline.question('Who owns the file?', fowner => {
-				fileowner = fowner;
-				readline.question('What type  of file is it?', fdescription => {
-					filedesc = fdescription;
-					contract.submitTransaction('createFile', 'File02', filetype, 						filename, fileowner, filedesc);
-					console.log(details.length);
-					readline.close();
-					readline.removeAllListeners();
-
-				});
-			});
-		});
-	});
-	details[0] = filetype;
-	details[1] = filename;
-	details[2] = fileowner;
-	details[3] = filedesc;
-
-
-
-	//console.log(details[0]);
-	
+		await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', 'Sales figures for the week', json);
+		console.log('Transaction submitted');
 
 
         // Disconnect from the gateway.
-    await gateway.disconnect();
+    	await gateway.disconnect();
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);

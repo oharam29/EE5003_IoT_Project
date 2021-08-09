@@ -129,6 +129,7 @@ func (s *SmartContract) QueryAllFiles(ctx contractapi.TransactionContextInterfac
 
 		queryResult := QueryResult{Key: queryResponse.Key, Record: file}
 		results = append(results, queryResult)
+
 	}
 
 	return results, nil
@@ -143,6 +144,13 @@ func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterfa
 	}
 
 	file.Owner = newOwner
+
+	timestamp,e := ctx.GetStub().GetTxTimestamp()
+	t := time.Unix(timestamp.Seconds, int64(timestamp.Nanos)).String()
+	if e != nil {
+		return fmt.Errorf("Failed to fetch time. %s", e.Error())
+	}
+	file.TimeStamp = t
 
 	fileAsBytes, _ := json.Marshal(file)
 
