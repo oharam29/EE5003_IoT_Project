@@ -135,8 +135,8 @@ func (s *SmartContract) QueryAllFiles(ctx contractapi.TransactionContextInterfac
 	return results, nil
 }
 
-// ChangeCarOwner updates the owner field of file with given id in world state
-func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterface, fileNumber string, newOwner string) error {
+// EditFile updates the owner field of file with given id in world state
+func (s *SmartContract) EditFileOwner(ctx contractapi.TransactionContextInterface, fileNumber string, newOwner string) error {
 	file, err := s.QueryCar(ctx, fileNumber)
 
 	if err != nil {
@@ -144,6 +144,28 @@ func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterfa
 	}
 
 	file.Owner = newOwner
+
+	timestamp,e := ctx.GetStub().GetTxTimestamp()
+	t := time.Unix(timestamp.Seconds, int64(timestamp.Nanos)).String()
+	if e != nil {
+		return fmt.Errorf("Failed to fetch time. %s", e.Error())
+	}
+	file.TimeStamp = t
+
+	fileAsBytes, _ := json.Marshal(file)
+
+	return ctx.GetStub().PutState(fileNumber, fileAsBytes)
+}
+
+// EditFile updates the owner field of file with given id in world state
+func (s *SmartContract) EditFileType(ctx contractapi.TransactionContextInterface, fileNumber string, newType string) error {
+	file, err := s.QueryCar(ctx, fileNumber)
+
+	if err != nil {
+		return err
+	}
+
+	file.Type = newType
 
 	timestamp,e := ctx.GetStub().GetTxTimestamp()
 	t := time.Unix(timestamp.Seconds, int64(timestamp.Nanos)).String()
