@@ -97,10 +97,16 @@ async function main() {
 		await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', 'Sales figures for the week', json);
 		console.log('Transaction submitted');
 
+		await contract.submitTransaction('createFile', 'File03', 'PDF', 'Purchase Figures', 'Manager', 'Purchase figures for the week', json);
+		console.log('Transaction submitted');
+
 		await contract.submitTransaction('EditFileOwner', 'File02', 'New Manager');
 		console.log('File Owner has been edited');
 
 		await contract.submitTransaction('EditFileType', 'File02', 'Word Doc');
+		console.log('File Type has been edited');
+
+		await contract.submitTransaction('EditFileName', 'File03', 'Puchase Invoice');
 		console.log('File Type has been edited');
 
         // Disconnect from the gateway.

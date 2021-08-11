@@ -179,6 +179,28 @@ func (s *SmartContract) EditFileType(ctx contractapi.TransactionContextInterface
 	return ctx.GetStub().PutState(fileNumber, fileAsBytes)
 }
 
+// EditFile updates the owner field of file with given id in world state
+func (s *SmartContract) EditFileName(ctx contractapi.TransactionContextInterface, fileNumber string, newName string) error {
+	file, err := s.QueryCar(ctx, fileNumber)
+
+	if err != nil {
+		return err
+	}
+
+	file.Type = newName
+
+	timestamp,e := ctx.GetStub().GetTxTimestamp()
+	t := time.Unix(timestamp.Seconds, int64(timestamp.Nanos)).String()
+	if e != nil {
+		return fmt.Errorf("Failed to fetch time. %s", e.Error())
+	}
+	file.TimeStamp = t
+
+	fileAsBytes, _ := json.Marshal(file)
+
+	return ctx.GetStub().PutState(fileNumber, fileAsBytes)
+}
+
 func main() {
 
 	chaincode, err := contractapi.NewChaincode(new(SmartContract))
