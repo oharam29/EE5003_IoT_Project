@@ -16,21 +16,21 @@ const readline = require('readline').createInterface({
 	console: false
 });
 
-async function userinput() {
-	var promise = new Promise(userinput(resolve,reject) {
+function userinput() {
+	var promise = new Promise(function(resolve,reject) {
 
 		var content = [];
 		var r1 = readline('/EE5003_IoT_Project/Code/Test/fabcar/javascript/hello.txt');
 
-		r1.on('line', userinput (line, lineCount, byteCount) {
+		r1.on('line', function (line, lineCount, byteCount) {
 			var arr = line.split(" ");
 			content.push(arr[0]);
 		})
-		.on('close', userinput() {
+		.on('close', function() {
 			var json = JSON.stringify(content);
 			resolve(content);
 		})
-		.on('error', userinput (e){
+		.on('error', function (e){
 			console.log("error", e);
 		});
 
@@ -40,7 +40,7 @@ async function userinput() {
 		console.log(resolveResult);
 		return resolveResult;
 	});
-};
+}
 
 async function main() {
     try {
