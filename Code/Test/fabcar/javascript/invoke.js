@@ -12,47 +12,35 @@ const path = require('path');
 
 const prompt = require('prompt');
 const readline = require('readline').createInterface({
-	input: process.stdin,
-	output: process.stdout
+	input: fs.createReadStream('hello.txt'),
+	console: false
 });
 
 async function userinput() {
-		var details = new Array();
-		var filetype = "";
-		var fileowner = "";
-		var filename = "";
-		var filedesc = "";
+	var promise = new Promise(userinput(resolve,reject) {
 
-		console.log(details.length);
+		var content = [];
+		var r1 = readline('/EE5003_IoT_Project/Code/Test/fabcar/javascript/hello.txt');
 
-		readline.question('What type of file is it?', (ftype) => {
-			filetype = ftype;
-			console.log(filetype);
-			readline.question('What is the file name?', fname => {
-				filename=fname;
-				readline.question('Who owns the file?', fowner => {
-					fileowner = fowner;
-					readline.question('What type  of file is it?', fdescription => {
-						filedesc = fdescription;
-						contract.submitTransaction('createFile', 'File02', filetype, 						filename, fileowner, filedesc);
-						console.log(details.length);
-						readline.close();
-						readline.removeAllListeners();
-
-					});
-				});
-			});
+		r1.on('line', userinput (line, lineCount, byteCount) {
+			var arr = line.split(" ");
+			content.push(arr[0]);
+		})
+		.on('close', userinput() {
+			var json = JSON.stringify(content);
+			resolve(content);
+		})
+		.on('error', userinput (e){
+			console.log("error", e);
 		});
-		details[0] = filetype;
-		details[1] = filename;
-		details[2] = fileowner;
-		details[3] = filedesc;
 
+	});
 
-
-		console.log(details[0]);
-	return details;
-}
+	promise.then((resolveResult) => {
+		console.log(resolveResult);
+		return resolveResult;
+	});
+};
 
 async function main() {
     try {
@@ -91,6 +79,9 @@ async function main() {
 
         var time = new Date();
         console.log(time);
+
+        var args = process.argv;
+        console.log(args);
 
         var json = JSON.stringify(time);
 
