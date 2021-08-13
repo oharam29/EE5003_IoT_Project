@@ -11,16 +11,21 @@ const fs = require('fs');
 const path = require('path');
 
 const prompt = require('prompt');
-const readline = require('readline').createInterface({
-	input: fs.createReadStream('hello.txt'),
-	console: false
-});
+const readline = require('readline');
 
 function userinput() {
 	var promise = new Promise(function(resolve,reject) {
+        var args = process.argv;
+        console.log(args);
+
+        var file = args[2].toString();
+
 
 		var content = [];
-		var r1 = readline('/EE5003_IoT_Project/Code/Test/fabcar/javascript/hello.txt');
+		var r1 = readline.createInterface({
+            input: fs.createReadStream(file),
+            console: false
+        });
 
 		r1.on('line', function (line, lineCount, byteCount) {
 			var arr = line.split(" ");
@@ -40,6 +45,18 @@ function userinput() {
 		console.log(resolveResult);
 		return resolveResult;
 	});
+}
+
+function newFile(){
+        var args = process.argv;
+        console.log(args);
+
+        var file = args[2].toString();
+        console.log(file);
+        var fileparts = file.split('.',2);
+        var name = fileparts[0];
+        var extension = fileparts[1];
+        console.log('.' + extension);
 }
 
 async function main() {
@@ -77,11 +94,11 @@ async function main() {
         //await contract.submitTransaction('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
         console.log('Transaction has been submitted');
 
+        newFile();
+        userinput();
+/*
         var time = new Date();
         console.log(time);
-
-        var args = process.argv;
-        console.log(args);
 
         var json = JSON.stringify(time);
 
@@ -99,6 +116,7 @@ async function main() {
 
 		await contract.submitTransaction('EditFileName', 'File03', 'Puchase Invoice');
 		console.log('File Type has been edited');
+*/
 
         // Disconnect from the gateway.
     	await gateway.disconnect();
