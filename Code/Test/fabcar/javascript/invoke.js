@@ -14,37 +14,21 @@ const prompt = require('prompt');
 const readline = require('readline');
 
 function userinput() {
-	var promise = new Promise(function(resolve,reject) {
         var args = process.argv;
-        console.log(args);
-
+        if(args.length < 3){
+            console.log("Usage: node " + args[1] + "FILENAME");
+            process.exit(1);
+        }
         var file = args[2].toString();
 
-
-		var content = [];
-		var r1 = readline.createInterface({
-            input: fs.createReadStream(file),
-            console: false
+        fs.readFile(file, 'utf8', function(err, data){
+            if (err) throw err;
+            console.log("Reading: " + file);
+            var content = data;
+            console.log(data);
         });
 
-		r1.on('line', function (line, lineCount, byteCount) {
-			var arr = line.split(" ");
-			content.push(arr[0]);
-		})
-		.on('close', function() {
-			var json = JSON.stringify(content);
-			resolve(content);
-		})
-		.on('error', function (e){
-			console.log("error", e);
-		});
 
-	});
-
-	promise.then((resolveResult) => {
-		console.log(resolveResult);
-		return resolveResult;
-	});
 }
 
 function newFile(){
