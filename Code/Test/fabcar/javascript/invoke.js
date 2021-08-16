@@ -19,6 +19,13 @@ function userinput() {
             console.log("Usage: node " + args[1] + "FILENAME");
             process.exit(1);
         }
+        var transaction_content = [];
+        var x = inputFile();
+        
+        transaction_content[0] = x[0];
+        transaction_content[1] = x[1];
+        console.log(transaction_content);
+
         var file = args[2].toString();
 
         fs.readFile(file, 'utf8', function(err, data){
@@ -31,16 +38,14 @@ function userinput() {
 
 }
 
-function newFile(){
+function inputFile(){
         var args = process.argv;
-        console.log(args);
-
         var file = args[2].toString();
-        console.log(file);
         var fileparts = file.split('.',2);
         var name = fileparts[0];
+        fileparts[1] = "." + fileparts[1];
         var extension = fileparts[1];
-        console.log('.' + extension);
+        return fileparts
 }
 
 async function main() {
@@ -78,7 +83,7 @@ async function main() {
         //await contract.submitTransaction('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
         console.log('Transaction has been submitted');
 
-        newFile();
+        //newFile();
         userinput();
 /*
         var time = new Date();
