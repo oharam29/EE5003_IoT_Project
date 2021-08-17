@@ -17,7 +17,8 @@
     "dependencies": {
         "fabric-ca-client": "^2.2.4",
         "fabric-network": "^2.2.4",
-        "prompt": "^1.1.0"
+        "prompt": "^1.1.0",
+        "sha1": "^1.1.1"
     },
     "devDependencies": {
         "chai": "^4.2.0",

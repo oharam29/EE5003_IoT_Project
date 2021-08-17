@@ -30,7 +30,7 @@ type File struct {
 	Type string `json:"filetype"`
 	Name string `json:"name"` 
 	Owner string `json:"owner"`
-	Description string `json:"description"`
+	Content string `json:"content"`
 	TimeStamp string `json:timestamp`
 }
 
@@ -55,7 +55,7 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 
 
 		
-		File{Type: "Word", Name: "Grades", Owner: "Mike", Description: "Grades of Maths test", TimeStamp: t},
+		File{Type: "Word", Name: "Grades", Owner: "Mike", Content: "Grades of Maths test", TimeStamp: t},
 	}
 
 	for i, file := range files {
@@ -71,12 +71,12 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 }
 
 // CreateFile adds a new file to the world state with given details
-func (s *SmartContract) CreateFile(ctx contractapi.TransactionContextInterface, fileNumber string, filetype string, name string, owner string, description string, timestamp string) error {
+func (s *SmartContract) CreateFile(ctx contractapi.TransactionContextInterface, fileNumber string, filetype string, name string, owner string, content string, timestamp string) error {
 	file := File{
 		Type:   filetype,
 		Name:  name,
 		Owner: owner,
-		Description:  description,
+		Content:  content,
 		TimeStamp: timestamp,
 	}
 
