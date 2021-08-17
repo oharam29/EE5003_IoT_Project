@@ -12,7 +12,7 @@ const path = require('path');
 
 const prompt = require('prompt');
 const readline = require('readline');
-const sha1 = require('sha1');
+const sha256 = require('sha256');
 
 function userinput() {
         var args = process.argv;
@@ -33,10 +33,11 @@ function userinput() {
             if (err) throw err;
             console.log("Reading: " + file);
             content = data;
-            console.log(content);
+            //console.log(content);
         });
 
         var hashed = hashFile(content);
+        console.log(hashed);
         transaction_content[2] = "Mike";
         transaction_content[3] = hashed;
 
@@ -48,7 +49,7 @@ function userinput() {
 function hashFile(stringtohash) {
     var x = stringtohash;
 
-    var hash = sha1(x);
+    var hash = sha256(x);
     //console.log(hash);
 
     return hash;
