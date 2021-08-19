@@ -16,6 +16,7 @@ const sha256 = require('sha256');
 
 function userinput() {
         var args = process.argv;
+        console.log(args);
         if(args.length < 3){
             console.log("Usage: node " + args[1] + "FILENAME");
             process.exit(1);
@@ -36,9 +37,12 @@ function userinput() {
             //console.log(content);
         });
 
+        var username = UserCred();
+        transaction_content[2] = username;
+
+
         var hashed = hashFile(content);
         console.log(hashed);
-        transaction_content[2] = "Mike";
         transaction_content[3] = hashed;
 
         console.log(transaction_content);
@@ -63,7 +67,15 @@ function inputFile(){
         var name = fileparts[0];
         fileparts[1] = "." + fileparts[1];
         var extension = fileparts[1];
-        return fileparts
+        return fileparts;
+}
+
+function UserCred(){
+        var args = process.argv;
+        var user = args[1].toString();
+        var username = user.split('/');
+        var name = username[2];
+        return name;
 }
 
 async function main() {
@@ -96,8 +108,6 @@ async function main() {
         const contract = network.getContract('fabcar');
 
         var time = new Date();
-        console.log(time);
-
         var json = JSON.stringify(time);
 
         // Submit the specified transaction.
