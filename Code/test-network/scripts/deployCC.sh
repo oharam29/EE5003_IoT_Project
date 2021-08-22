@@ -3,7 +3,7 @@
 source scripts/utils.sh
 
 CHANNEL_NAME=${1:-"mychannel"}
-CC_NAME=${2}
+CC_NAME="files"
 CC_SRC_PATH=${3}
 CC_SRC_LANGUAGE=${4}
 CC_VERSION=${5:-"1.0"}

@@ -58,16 +58,19 @@ JavaScript:
 
   Then run the following applications to enroll the admin user, and register a new user
   called appUser which will be used by the other applications to interact with the deployed
-  FabCar contract:
+  filestore contract:
     node enrollAdmin
     node registerUser
 
   You can run the invoke application as follows. By default, the invoke application will
-  create a new car, but you can update the application to submit other transactions:
+  take in a file as a command line argument and read the name, extension, the current user and the file 
+  content. It will hash the content and then addit to the chain. Then it will edit the name, owner and
+  extension of a file.
     node invoke
 
   You can run the query application as follows. By default, the query application will
-  return all cars, but you can update the application to evaluate other transactions:
+  return all files. It will show the name, extension, owner, content and timestamp of when the transaction 
+  took place.
     node query
 
 EOF

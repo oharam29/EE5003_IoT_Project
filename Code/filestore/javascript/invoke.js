@@ -105,7 +105,7 @@ async function main() {
         const network = await gateway.getNetwork('filestore');
 
         // Get the contract from the network.
-        const contract = network.getContract('fabcar');
+        const contract = network.getContract('files');
 
         var time = new Date();
         var json = JSON.stringify(time);

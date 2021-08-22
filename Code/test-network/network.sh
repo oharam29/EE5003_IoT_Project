@@ -309,7 +309,7 @@ CLI_DELAY=3
 # channel name defaults to "mychannel"
 CHANNEL_NAME="filestore"
 # chaincode name defaults to "NA"
-CC_NAME="filestore_chaincode"
+CC_NAME="files"
 # chaincode path defaults to "NA"
 CC_SRC_PATH="NA"
 # endorsement policy defaults to "NA". This would allow chaincodes to use the majority default policy.
