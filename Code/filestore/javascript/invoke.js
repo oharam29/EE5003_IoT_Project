@@ -16,28 +16,26 @@ const sha256 = require('sha256');
 
 function userinput() {
         var args = process.argv;
-        console.log(args);
-        if(args.length < 3){
-            console.log("Usage: node " + args[1] + "FILENAME");
-            process.exit(1);
-        }
+
+        var user = args[1].toString();
+        var file = args[2].toString();
+
+
         var transaction_content = [];
-        var x = inputFile();
+        var x = inputFile(file);
         
         transaction_content[0] = x[0];
         transaction_content[1] = x[1];
         console.log(transaction_content);
 
-        var file = args[2].toString();
         var content = "";
         fs.readFile(file, 'utf8', function(err, data){
             if (err) throw err;
             console.log("Reading: " + file);
             content = data;
-            //console.log(content);
         });
 
-        var username = UserCred();
+        var username = UserCred(user);
         transaction_content[2] = username;
 
 
@@ -60,9 +58,8 @@ function hashFile(stringtohash) {
 
 }
 
-function inputFile(){
-        var args = process.argv;
-        var file = args[2].toString();
+function inputFile(filetohash){
+        var file = filetohash;
         var fileparts = file.split('.',2);
         var name = fileparts[0];
         fileparts[1] = "." + fileparts[1];
@@ -70,9 +67,8 @@ function inputFile(){
         return fileparts;
 }
 
-function UserCred(){
-        var args = process.argv;
-        var user = args[1].toString();
+function UserCred(usercreds){
+        var user = usercreds;
         var username = user.split('/');
         var name = username[2];
         return name;
@@ -107,18 +103,26 @@ async function main() {
         // Get the contract from the network.
         const contract = network.getContract('files');
 
+        var args = process.argv;
+        if(args.length == 3){
+            // Submit the specified transaction.
+            var transact = userinput();
+            var time = new Date();
+            var json = JSON.stringify(time);
+            await contract.submitTransaction('createFile', 'File10', transact[1], transact[0], transact[2], transact[3], json);
+
+        }
+
+        
+        console.log("//-------------------------------------------");
         var time = new Date();
         var json = JSON.stringify(time);
-
-        // Submit the specified transaction.
-        var transact = userinput();
-        await contract.submitTransaction('createFile', 'File10', transact[1], transact[0], transact[2], transact[3], json);
-
-        console.log("//-------------------------------------------");
 		await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', 'Sales figures for the week', json);
 		console.log('Transaction submitted');
 
         console.log("//-------------------------------------------");
+        var time = new Date();
+        var json = JSON.stringify(time);
 		await contract.submitTransaction('createFile', 'File03', 'PDF', 'Purchase Figures', 'Manager', 'Purchase figures for the week', json);
 		console.log('Transaction submitted');
 
