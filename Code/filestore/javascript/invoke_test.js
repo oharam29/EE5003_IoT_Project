@@ -24,23 +24,27 @@ function userinput() {
         var transaction_content = [];
         var x = inputFile(file);
         
+        console.log("Filename: " + x[0]);
         transaction_content[0] = x[0];
-        transaction_content[1] = x[1];
-        console.log(transaction_content);
 
-        var username = UserCred(user);
-        transaction_content[2] = username;
+        console.log('File extension: ' + x[1]);
+        transaction_content[1] = x[1];
+        //console.log(transaction_content);
 
         var content = fs.readFileSync(file, 'utf8');
-        //console.log(content);
 
-            
+        var username = UserCred(user);
+        //console.log('Current User: ' + username)
+
+        transaction_content[2] = username;
+
+
         var hashed = hashFile(content);
-        console.log(hashed);
+        //console.log('Resulting hash: ' + hashed);
         transaction_content[3] = hashed;
 
-
-        console.log(transaction_content);
+        //console.log('Payload content:')
+        //console.log(transaction_content);
         return transaction_content;
 
 }
