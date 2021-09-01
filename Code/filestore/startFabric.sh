@@ -44,9 +44,9 @@ cat <<EOF
 
 Total setup execution time : $(($(date +%s) - starttime)) secs ...
 
-Next, use the FabCar applications to interact with the deployed FabCar contract.
-The FabCar applications are available in multiple programming languages.
-Follow the instructions for the programming language of your choice:
+The filestore application interacts with the deployed filestore contract in order to preovide the ability to store the users files securely on the chain.
+The filestore applications is available in the node.js programming language.
+
 
 JavaScript:
 

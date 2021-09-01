@@ -14,6 +14,8 @@ const prompt = require('prompt');
 const readline = require('readline');
 const sha256 = require('sha256');
 
+const splitAt = index => x => [x.slice(0, index), x.slice(index)]
+
 function userinput() {
         var args = process.argv;
 
@@ -24,8 +26,7 @@ function userinput() {
         var transaction_content = [];
         var x = inputFile(file);
         
-        transaction_content[0] = x[0];
-        transaction_content[1] = x[1];
+
         console.log(transaction_content);
 
         console.log("Reading: " + file);
@@ -33,12 +34,21 @@ function userinput() {
 
 
         var username = UserCred(user);
-        transaction_content[2] = username;
+
+        var secure_file = x[0] + x[1] + user + content;
+        var hashed = hashFile(secure_file);
+        console.log(secure_file);
+
+        var secure_content = splitAt(32)(hashed);
+        console.log(secure_content);
+        var split_hash_1 = splitAt(16)(secure_content[0]);
+        var split_hash_2 = splitAt(16)(secure_content[1]);
 
 
-        var hashed = hashFile(content);
-        console.log(hashed);
-        transaction_content[3] = hashed;
+        transaction_content[0] = split_hash_1[0];
+        transaction_content[1] = split_hash_1[1];
+        transaction_content[2] = split_hash_2[0];
+        transaction_content[3] = split_hash_2[1];
 
         console.log(transaction_content);
         return transaction_content;

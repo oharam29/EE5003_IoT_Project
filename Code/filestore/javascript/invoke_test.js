@@ -28,17 +28,17 @@ function userinput() {
         transaction_content[1] = x[1];
         console.log(transaction_content);
 
-        console.log("Reading: " + file);
-        var content = fs.readFileSync(file, 'utf8');
-
-
         var username = UserCred(user);
         transaction_content[2] = username;
 
+        var content = fs.readFileSync(file, 'utf8');
+        //console.log(content);
 
+            
         var hashed = hashFile(content);
         console.log(hashed);
         transaction_content[3] = hashed;
+
 
         console.log(transaction_content);
         return transaction_content;
@@ -103,37 +103,14 @@ async function main() {
         var args = process.argv;
         if(args.length == 3){
             // Submit the specified transaction.
+            console.time('Reading in the file, time elapsed');
             var transact = userinput();
             var time = new Date();
             var json = JSON.stringify(time);
             await contract.submitTransaction('createFile', 'File10', transact[1], transact[0], transact[2], transact[3], json);
-
+            console.timeEnd('Reading in the file, time elapsed');
         }
 
-        
-        console.log("//-------------------------------------------");
-        var time = new Date();
-        var json = JSON.stringify(time);
-		await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', 'Sales figures for the week', json);
-		console.log('Transaction submitted');
-
-        console.log("//-------------------------------------------");
-        var time = new Date();
-        var json = JSON.stringify(time);
-		await contract.submitTransaction('createFile', 'File03', 'PDF', 'Purchase Figures', 'Manager', 'Purchase figures for the week', json);
-		console.log('Transaction submitted');
-
-        console.log("//-------------------------------------------");
-		await contract.submitTransaction('EditFileOwner', 'File02', 'New Manager');
-		console.log('File Owner has been edited');
-
-        console.log("//-------------------------------------------");
-		await contract.submitTransaction('EditFileType', 'File02', 'Word Doc');
-		console.log('File Type has been edited');
-
-        console.log("//-------------------------------------------");
-		await contract.submitTransaction('EditFileName', 'File03', 'Puchase Invoice');
-		console.log('File Type has been edited');
 
 
         // Disconnect from the gateway.
