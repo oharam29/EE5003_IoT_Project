@@ -12,6 +12,7 @@ This is the Code works repo for the project of the module EE5003 IoT project. On
 This can be done by changing directory to the Code Directory and follwing the below steps:
 
   Start by chainging into the the filestore directory:
+
     cd filestore
 
   Then the fabric network must be started:
