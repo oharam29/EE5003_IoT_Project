@@ -3,11 +3,13 @@ Repo for the EE5003 IoT Project module as part of the MCTY course in DCU
 
 This project is built using the Hyperledger fabric network that hs been modified to carry out the reuqired features to accomdate files.
 
+The docs directory contains all documentation relating to the project such as the Research Log, porject Final report and the video presentation.
+
 ///----- Below is the instructions on how to run the project -----///
 
-This the instrucution file for how to run the applicaion for the project of the module EE5003 IoT project. Once the project repository has been clone onto a machine the project can be run.
+This is the Code works repo for the project of the module EE5003 IoT project. Once the project repository has been clone onto a machine the project can be run.
 
-This can be done by:
+This can be done by changing directory to the Code Directory and follwing the below steps:
 
   Start by chainging into the the filestore directory:
     cd filestore
