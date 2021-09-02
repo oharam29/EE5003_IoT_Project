@@ -75,6 +75,10 @@ function UserCred(usercreds){
         return name;
 }
 
+function getRandInt(max){
+    return Math.floor(Math.random()*max);
+}
+
 async function main() {
     try {
         // load the network configuration
@@ -111,7 +115,8 @@ async function main() {
             var transact = userinput();
             var time = new Date();
             var json = JSON.stringify(time);
-            await contract.submitTransaction('createFile', 'File10', transact[1], transact[0], transact[2], transact[3], json);
+            var fileKey = 'File ' + getRandInt(10000).toString();
+            await contract.submitTransaction('createFile', fileKey, transact[1], transact[0], transact[2], transact[3], json);
             console.timeEnd('Reading in the file, time elapsed');
         }
 
