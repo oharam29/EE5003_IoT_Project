@@ -59,4 +59,9 @@ JavaScript:
   took place.
 
     node query
+    
+  In order to search for a specific file on the chain. Run the query command and pass the file key as a command line argument. This will return only data about the file in the query.
+  The command to run is:
+  
+    node query.js --filekey
 
