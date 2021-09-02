@@ -44,11 +44,26 @@ JavaScript:
   content. It will hash the content and then addit to the chain. Then it will edit the name, owner and
   extension of a file.
 
-    node invoke
+    node invoke -filename
+
+  You can run the invoke time test application as follows. By default, the invoke time test application will
+  take in a file as a command line argument and read the name, extension, the current user and the file 
+  content. It will hash the content and then addit to the chain. It will then display the added file name
+  and extension and the time elapsed to complete the run.
+
+    node invoke_test.js --filename
+
+  You can run the invoke secure application as follows. By default, the invoke secure application will
+  take in a file as a command line argument and read the name, extension, the current user and the file 
+  content.The hash for this applicaion will be the result of combing the file name, extesion, owner and
+  content. It will then spilt the hash into equal segments and store them in the payload. This allows 
+  for even more secure storage of files as it would be harder to detemine the full hash as the 4 parts
+  could be arranged in any order.
+
+    node invoke_secure.js -filename
 
   You can run the query application as follows. By default, the query application will
   return all files. It will show the name, extension, owner, content and timestamp of when the transaction 
   took place.
+
     node query
-
-
