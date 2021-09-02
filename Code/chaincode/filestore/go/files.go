@@ -19,13 +19,6 @@ type SmartContract struct {
 }
 
 // File describes basic details of what makes up a file
-type Car struct {
-	Make   string `json:"make"`
-	Model  string `json:"model"`
-	Colour string `json:"colour"`
-	Owner  string `json:"owner"`
-}
-
 type File struct { 
 	Type string `json:"filetype"`
 	Name string `json:"name"` 
