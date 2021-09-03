@@ -122,26 +122,29 @@ async function main() {
         console.log("//-------------------------------------------");
         var time = new Date();
         var json = JSON.stringify(time);
-		await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', 'Sales figures for the week', json);
-		console.log('Transaction submitted');
+        var hardCodedHash1 = hashFile("Sales figures for the week");
+		await contract.submitTransaction('createFile', 'File02', 'PDF', 'Sales Figures', 'Manager', hardCodedHash1, json);
+		console.log('Transaction submitted - Sales Figures added to chain');
 
         console.log("//-------------------------------------------");
         var time = new Date();
         var json = JSON.stringify(time);
-		await contract.submitTransaction('createFile', 'File03', 'PDF', 'Purchase Figures', 'Manager', 'Purchase figures for the week', json);
-		console.log('Transaction submitted');
+        var hardCodedHash2 = hashFile('Purchase figures for the week');
+
+		await contract.submitTransaction('createFile', 'File03', 'PDF', 'Purchase Figures', 'Manager', hardCodedHash2, json);
+		console.log('Transaction submitted - Purchase Figures added to chain');
 
         console.log("//-------------------------------------------");
 		await contract.submitTransaction('EditFileOwner', 'File02', 'New Manager');
-		console.log('File Owner has been edited');
+		console.log('File Owner has been edited - New Owner: New Manager');
 
         console.log("//-------------------------------------------");
 		await contract.submitTransaction('EditFileType', 'File02', 'Word Doc');
-		console.log('File Type has been edited');
+		console.log('File Type has been edited - New Type: Word Doc');
 
         console.log("//-------------------------------------------");
 		await contract.submitTransaction('EditFileName', 'File03', 'Puchase Invoice');
-		console.log('File Type has been edited');
+		console.log('File Name has been edited - New name: Purchase Invoice');
 
 
         // Disconnect from the gateway.
