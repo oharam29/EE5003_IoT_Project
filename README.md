@@ -73,3 +73,8 @@ JavaScript:
   The command to run is:
   
     node query.js --filekey
+    
+  In order to verify the hash has not been edit and verify the integrity of the file the query_test.js should be ran. It needs command line argument to be passed to it and it will test
+  the hash and return the result
+  
+    node query_test.js --filekey
