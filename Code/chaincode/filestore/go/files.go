@@ -78,8 +78,8 @@ func (s *SmartContract) CreateFile(ctx contractapi.TransactionContextInterface, 
 	return ctx.GetStub().PutState(fileNumber, fileAsBytes)
 }
 
-// QueryCar returns the file stored in the world state with given id
-func (s *SmartContract) QueryCar(ctx contractapi.TransactionContextInterface, fileNumber string) (*File, error) {
+// QueryFile returns the file stored in the world state with given id
+func (s *SmartContract) QueryFile(ctx contractapi.TransactionContextInterface, fileNumber string) (*File, error) {
 	fileAsBytes, err := ctx.GetStub().GetState(fileNumber)
 
 	if err != nil {
@@ -130,7 +130,7 @@ func (s *SmartContract) QueryAllFiles(ctx contractapi.TransactionContextInterfac
 
 // EditFile updates the owner field of file with given id in world state
 func (s *SmartContract) EditFileOwner(ctx contractapi.TransactionContextInterface, fileNumber string, newOwner string) error {
-	file, err := s.QueryCar(ctx, fileNumber)
+	file, err := s.QueryFile(ctx, fileNumber)
 
 	if err != nil {
 		return err
@@ -152,7 +152,7 @@ func (s *SmartContract) EditFileOwner(ctx contractapi.TransactionContextInterfac
 
 // EditFile updates the owner field of file with given id in world state
 func (s *SmartContract) EditFileType(ctx contractapi.TransactionContextInterface, fileNumber string, newType string) error {
-	file, err := s.QueryCar(ctx, fileNumber)
+	file, err := s.QueryFile(ctx, fileNumber)
 
 	if err != nil {
 		return err
@@ -174,7 +174,7 @@ func (s *SmartContract) EditFileType(ctx contractapi.TransactionContextInterface
 
 // EditFile updates the owner field of file with given id in world state
 func (s *SmartContract) EditFileName(ctx contractapi.TransactionContextInterface, fileNumber string, newName string) error {
-	file, err := s.QueryCar(ctx, fileNumber)
+	file, err := s.QueryFile(ctx, fileNumber)
 
 	if err != nil {
 		return err

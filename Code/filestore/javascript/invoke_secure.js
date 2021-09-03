@@ -120,7 +120,8 @@ async function main() {
             var transact = userinput();
             var time = new Date();
             var json = JSON.stringify(time);
-            var fileKey = 'File ' + getRandInt(10000).toString();
+            var fileKey = 'File' + getRandInt(10000).toString();
+            console.log('Adding file to chain. Key : ' + fileKey);
             await contract.submitTransaction('createFile', fileKey, transact[1], transact[0], transact[2], transact[3], json);
         }
 

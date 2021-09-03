@@ -11,6 +11,8 @@ const path = require('path');
 const fs = require('fs');
 
 
+
+
 async function main() {
     try {
         // load the network configuration
@@ -41,10 +43,20 @@ async function main() {
         const contract = network.getContract('files');
 
         // Evaluate the specified transaction.
-        // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
-        // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
-        const result = await contract.evaluateTransaction('queryAllFiles');
-        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+
+        // queryFile transaction - requires 1 argument, ex: ('queryFile', 'File01')
+        var args = process.argv;
+        if(args.length == 3){
+            var filetofind = args[2].toString();
+            const result = await contract.evaluateTransaction('queryFile', filetofind);
+            console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+        }
+        else{
+            // queryAllFiles transaction - requires no arguments, ex: ('queryAllFiles')
+            const result = await contract.evaluateTransaction('queryAllFiles');
+            console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+        }
+
 
         // Disconnect from the gateway.
         await gateway.disconnect();
