@@ -303,7 +303,7 @@ function networkDown() {
 CRYPTO="cryptogen"
 # timeout duration - the duration the CLI should wait for a response from
 # another container before giving up
-MAX_RETRY=5
+MAX_RETRY=10
 # default for delay between commands
 CLI_DELAY=3
 # channel name defaults to "mychannel"
