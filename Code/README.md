@@ -69,4 +69,13 @@ JavaScript:
   the hash and return the result
   
     node query_test.js --filekey
+    
+  Finally, to shut the network down again first you need to run the following command to go back a directory level:
+  
+    cd ..
+    
+  Then the command to stop the network is:
+  
+    ./networkDown.sh
+    
 
